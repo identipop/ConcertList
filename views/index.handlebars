@@ -1,0 +1,82 @@
+<h1>Concerts to Experience</h1>
+
+<ul>
+  {{#each concerts}}
+    <li>
+      <p>
+        {{this.id}}. {{this.artist}}
+
+        <button data-artistid="{{this.id}}" class="rockout">Rock Out</button>
+      </p>
+    </li>
+  {{/each}}
+</ul>
+
+<h2>Add an Artist You'd Like to See in Concert</h2>
+<form id="addconcert" class="button-size">
+	<textarea type="text" name="artist"></textarea>
+	<button type="submit">Add to List</button>
+</form>
+
+
+
+<script type="text/javascript">
+  $(".rockout").on("click", function(event) {
+    var id = $(this).data("artistid");
+
+    // Mark as seen
+    $.ajax("/concerts/" + id, {
+      type: "PUT"
+    }).then(
+      function() {
+        console.log("rocked out to", id);
+        $(this).css('font-weight', 'bolder')
+        location.reload();
+      }
+    );
+  });
+
+  $("#addconcert").on("submit", function(event) {
+
+    event.preventDefault();
+
+    var newConcert = {
+      artist: $("#addconcert [name=artist]").val().trim()
+    };
+
+
+    $.ajax("/concerts", {
+      type: "POST",
+      data: newConcert
+    }).then(
+      function() {
+        console.log("added new concert");
+
+        location.reload();
+      }
+    );
+  });
+
+  $("#updatemovie").on("submit", function(event) {
+
+    event.preventDefault();
+
+    var id = $("[name=id]").val().trim();
+
+    var updatedMovie = {
+      movie: $("#updatemovie [name=movie]").val().trim()
+    };
+
+    // Send the PUT request.
+    $.ajax("/movies/" + id, {
+      type: "PUT",
+      data: updatedMovie
+    }).then(
+      function() {
+        console.log("updated id ", id);
+
+        location.reload();
+      }
+    );
+  });
+</script>

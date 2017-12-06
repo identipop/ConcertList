@@ -1,0 +1,11 @@
+CREATE DATABASE concertlistDB;
+
+USE DATABASE concertlistDB;
+
+CREATE TABLE concerts (
+  id INT AUTO_INCREMENT NOT NULL,
+  artist VARCHAR(50) NOT NULL,
+  rockout BOOLEAN NOT NULL DEFAULT 0,
+  date DATE TIMESTAMP,
+  PRIMARY KEY (id)
+);
