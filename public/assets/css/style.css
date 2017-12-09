@@ -1,0 +1,53 @@
+.jumbotron{
+  text-align: center;
+  padding: 20px !important;
+  max-height: 100px;
+  margin-top: 15px;
+  padding-bottom: 25px!important;
+
+
+}
+h1{
+  margin-top: unset !important;
+  margin-top: 1px;
+
+}
+
+#concertsseen{
+  text-align: center;
+
+
+
+
+}
+.concertsnotseen{
+  text-align: center;
+
+}
+
+h3{
+  text-align: center;
+}
+
+#artistholdernotseen {
+  background-color: lightgreen;
+  border-radius: 3px;
+
+
+}
+#artistholderseen{
+  background-color: lightblue;
+}
+
+.delete{
+  background-color: coral;
+}
+.unrockout{
+  background-color: lemonchiffon;
+}
+.rockout{
+  background-color: lavender;
+}
+.responsiveimage{
+  border: 10px black solid;
+}

@@ -1,36 +1,75 @@
-<h1>Concerts to Experience</h1>
-
-<ul>
+<div class = "container">
+  <div class = "jumbotron title">
+    <h1>Concerts to Experience</h1>
+  </div>
+<div class = "row">
+  <div class = "col-sm-3"></div>
+  <div class = "col-sm-6">
+    <img  class= "responsiveimage" src = "assets/img/concert.gif">
+  </div>
+  <div class = "col-sm-3"></div>
+</div>
+<div class = 'row'>
+<div class = 'col-sm-1'></div>
+<div class = 'col-sm-5'>
+  <h3>Concerts to See</h3>
+<div class = "concertsnotseen">
   {{#each concerts}}
-    <li>
-      <p>
-        {{this.id}}. {{this.artist}}
+    {{#unless rockout}}
 
-        <button data-artistid="{{this.id}}" class="rockout">Rock Out</button>
+      <p id = "artistholdernotseen">
+        {{this.artist}}
+
+        <button data-artistid="{{this.id}}" class="rockout btn" name="false"><span class="glyphicon glyphicon-music" aria-hidden="true"></span></button>
+
+        <button data-artistid="{{this.id}}" class="delete btn"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
       </p>
-    </li>
+    {{/unless}}
   {{/each}}
-</ul>
+</div>
+</div>
+<div class = "col-sm-5">
+  <h3>Concerts I've Seen</h3>
+<div id = "concertsseen">
+  {{#each concerts}}
+    {{#if rockout}}
+      <p id = "artistholderseen">
+        {{this.artist}}
 
-<h2>Add an Artist You'd Like to See in Concert</h2>
+        <button data-artistid="{{this.id}}" class="unrockout btn" name="true"><span class="glyphicon glyphicon-hand-left" aria-hidden="true"></span></button>
+        <button data-artistid="{{this.id}}" class="delete btn"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+      </p>
+    {{/if}}
+  {{/each}}
+</div>
+</div>
+<div class = "col-sm-1">
+</div>
+</div>
+
+
+<h2>Add an Artist that You'd Like to See in Concert</h2>
 <form id="addconcert" class="button-size">
 	<textarea type="text" name="artist"></textarea>
-	<button type="submit">Add to List</button>
+	<button type="submit btn"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 </form>
-
+</div>
 
 
 <script type="text/javascript">
   $(".rockout").on("click", function(event) {
     var id = $(this).data("artistid");
+    var boo =
+    {rockout: 1};
 
     // Mark as seen
     $.ajax("/concerts/" + id, {
-      type: "PUT"
+      type: "PUT",
+      data: boo
     }).then(
       function() {
         console.log("rocked out to", id);
-        $(this).css('font-weight', 'bolder')
+
         location.reload();
       }
     );
@@ -55,28 +94,42 @@
         location.reload();
       }
     );
-  });
+}
+);
 
-  $("#updatemovie").on("submit", function(event) {
-
+  $(".unrockout").on("click", function(event){
     event.preventDefault();
-
-    var id = $("[name=id]").val().trim();
-
-    var updatedMovie = {
-      movie: $("#updatemovie [name=movie]").val().trim()
-    };
-
-    // Send the PUT request.
-    $.ajax("/movies/" + id, {
+    var id = $(this).data("artistid");
+    var boo =
+    {rockout: 0};
+    // Mark as unseen
+    $.ajax("/concerts/" + id, {
       type: "PUT",
-      data: updatedMovie
+      data: boo
     }).then(
       function() {
-        console.log("updated id ", id);
-
+        console.log("unrocked out to", id);
         location.reload();
       }
     );
+
   });
+
+  $(".delete").on("click",
+function(event){
+  event.preventDefault();
+  var id = $(this).data("artistid");
+  // Send the DELETE request.
+  $.ajax("/concerts/" + id, {
+    type: "DELETE"
+  }).then(
+    function() {
+      console.log("deleted concert", id);
+      // Reload the page to get the updated list
+      location.reload();
+    }
+  );
+});
+
+
 </script>
