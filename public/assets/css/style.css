@@ -51,6 +51,7 @@ h3{
 }
 .responsiveimage{
   border: 10px black solid;
+  margin: 0 auto;
 }
 
 .submit{

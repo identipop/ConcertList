@@ -18,7 +18,7 @@
     {{#unless rockout}}
 
       <p id = "artistholdernotseen">
-        {{this.artist}}
+        <bold>{{this.artist}}</bold>
 
         <button data-artistid="{{this.id}}" class="rockout btn" name="false"><span class="glyphicon glyphicon-music" aria-hidden="true"></span></button>
 
@@ -34,7 +34,7 @@
   {{#each concerts}}
     {{#if rockout}}
       <p id = "artistholderseen">
-        {{this.artist}}
+        <bold>{{this.artist}}</bold>
 
         <button data-artistid="{{this.id}}" class="unrockout btn" name="true"><span class="glyphicon glyphicon-hand-left" aria-hidden="true"></span></button>
         <button data-artistid="{{this.id}}" class="delete btn"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
