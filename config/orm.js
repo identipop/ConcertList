@@ -13,7 +13,7 @@ var orm = {
   },
 
   insertOne: function (tableInput, param, value, cb){
-    var queryString = "INSERT INTO ?? (??) VALUES (?)"; connection.query(queryString, [tableInput, param,value], function(err, result){
+    var queryString = "INSERT INTO ?? (??) VALUES (?)"; connection.query(queryString, [tableInput, param, value], function(err, result){
       if (err){
         throw err;
       }
