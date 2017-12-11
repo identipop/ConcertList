@@ -2,7 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var orm = require ("./config/orm.js");
 var app = express();
-var port = 3000;
+var port = process.env.port || 3000;
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: true }));
